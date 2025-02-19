@@ -1,0 +1,30 @@
+pool:
+  name: SelfHosted
+
+steps:
+  # Install Node.js
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20.x'
+    displayName: 'Install Node.js'
+
+  # Install dependencies
+  - script: |
+      echo "Installing dependencies..."
+      npm install
+    displayName: 'Install Dependencies'
+
+  # Run tests
+  - script: |
+      echo "Running tests..."
+      npm run test:report
+    displayName: 'Run Tests'
+    continueOnError: true
+
+# Publish reports as an artifact
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathToPublish: 'reports'  # Path to the reports folder
+      artifactName: 'TestReports'
+    displayName: 'Publish Test Reports'
+    condition: always()
