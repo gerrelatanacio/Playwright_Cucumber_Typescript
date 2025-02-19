@@ -4,11 +4,11 @@
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js",
-    "qa:smoke": "npx cucumber-js --tags '@smoke-test or @negative-test' && npm run generate-report",
-    "qa:regression": "npx cucumber-js --tags '@regression-test' && npm run generate-report",
-    "qa:negative": "npx cucumber-js --tags '@negative-test' && npm run generate-report",
+    "qa:smoke": "npx cucumber-js --tags '@smoke-test or @negative-test'; npm run generate-report",
+    "qa:regression": "npx cucumber-js --tags '@regression-test'; npm run generate-report",
+    "qa:negative": "npx cucumber-js --tags '@negative-test'; npm run generate-report",
     "generate-report": "ts-node generate-report.ts",
-    "test:report": "npm run test && npm run generate-report"
+    "test:report": "npm run test; npm run generate-report"
   },
   "keywords": [],
   "author": "",
