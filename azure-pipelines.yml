@@ -1,6 +1,18 @@
 pool:
   name: SelfHosted
 
+parameters:
+  - name: testType
+    displayName: 'Test Type'
+    type: string
+    default: 'test:report'
+    values:
+      - test
+      - qa:smoke
+      - qa:regression
+      - qa:negative
+      - test:report
+
 steps:
   # Install Node.js
   - task: NodeTool@0
@@ -14,11 +26,11 @@ steps:
       npm install
     displayName: 'Install Dependencies'
 
-  # Run tests
+  # Run the selected test script dynamically
   - script: |
-      echo "Running tests..."
-      npm run test:report
-    displayName: 'Run Tests'
+      echo "Running $(testType) tests..."
+      npm run $(testType)
+    displayName: 'Run $(testType) Tests'
     continueOnError: true
 
 # Publish reports as an artifact
